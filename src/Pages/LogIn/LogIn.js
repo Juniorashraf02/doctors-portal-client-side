@@ -6,19 +6,16 @@ import { Link } from 'react-router-dom';
 
 const LogIn = () => {
     const [signInWithGoogle, googleUser, googleLoading, googleError] = useSignInWithGoogle(auth);
-    const [ signInWithEmailAndPassword, emailUser, emailloading, emailError] = useSignInWithEmailAndPassword(auth);
-    const { register, handleSubmit, watch, formState: { errors } } = useForm();
+    const [ signInWithEmailAndPassword, emailUser, emailLoading, emailError] = useSignInWithEmailAndPassword(auth);
+    const { register, handleSubmit, formState: { errors } } = useForm();
 
-    // const [users, setUsers] = useState({
-    //     email: '',
-    //     password: '',
-    // });
+
 
     let errorMessage;
 
-    const loading = googleLoading||emailloading;
+    const loading = googleLoading||emailLoading;
     if(loading){
-            return <button class="btn loading mt-10">loading</button>
+            return <button className="btn loading mt-10">loading</button>
     }
 
 
@@ -36,13 +33,13 @@ const LogIn = () => {
 
     return (
         <div className="justify-center flex my-24">
-            <div class="card w-96 bg-base-100 shadow-xl border">
-                <div class="card-body">
-                    <h2 class="card-title text-slate-500 justify-center">Login</h2>
+            <div className="card w-96 bg-base-100 shadow-xl border">
+                <div className="card-body">
+                    <h2 className="card-title text-slate-500 justify-center">Login</h2>
 
                     <form onSubmit={handleSubmit(onSubmit)}>
                        
-                        <input class="input w-full max-w-xs input-bordered my-2" placeholder="Enter your email" {...register("email", {
+                        <input className="input w-full max-w-xs input-bordered my-2" placeholder="Enter your email" {...register("email", {
                             required:{
                                 value: true,
                                 message: "Please enter your email",
@@ -52,10 +49,10 @@ const LogIn = () => {
                                 message: 'email pattern is not matched' 
                             }
                         })} />
-                        {errors.email?.type==='required' && <span class="text-gray-300 my-1">{errors.email.message}</span>}
-                        {errors.email?.type==='pattern' && <span class="text-gray-300 my-1">{errors.email.message}</span>}
+                        {errors.email?.type==='required' && <span className="text-gray-300 my-1">{errors.email.message}</span>}
+                        {errors.email?.type==='pattern' && <span className="text-gray-300 my-1">{errors.email.message}</span>}
 
-                        <input class="input w-full max-w-xs input-bordered" placeholder="Enter your password" {...register("password", {
+                        <input className="input w-full max-w-xs input-bordered" placeholder="Enter your password" {...register("password", {
                             required:{
                                 value: true,
                                 message: "Please enter your password",
@@ -65,17 +62,17 @@ const LogIn = () => {
                                 message: 'Must be 6 characters' 
                             }
                         })} />
-                        {errors.email?.type==='required' && <span class="text-gray-300 my-1">{errors.password.message}</span>} 
-                        {errors.email?.type==='pattern' && <span class="text-gray-300 my-1">{errors.password.message}</span>}
+                        {errors.email?.type==='required' && <span className="text-gray-300 my-1">{errors.password.message}</span>} 
+                        {errors.email?.type==='pattern' && <span className="text-gray-300 my-1">{errors.password.message}</span>}
                         {errorMessage}
 
-                        <input class="btn btn-bg-slate-500  btn-wide my-3" type="submit" value='Login'/>
+                        <input className="btn btn-bg-slate-500  btn-wide my-3" type="submit" value='Login'/>
                     </form>
                     <small>New to Doctors portal? <Link to="/signup" className="text-sky-600">Create account now</Link> </small>
 
-                    <div class="divider">OR</div>
-                    <div class="card-actions justify-center">
-                        <button onClick={() => signInWithGoogle()} class="btn btn-primary">Continue with Google</button>
+                    <div className="divider">OR</div>
+                    <div className="card-actions justify-center">
+                        <button onClick={() => signInWithGoogle()} className="btn btn-primary">Continue with Google</button>
                     </div>
                 </div>
             </div>

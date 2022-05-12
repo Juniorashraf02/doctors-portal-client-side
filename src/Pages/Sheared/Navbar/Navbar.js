@@ -1,7 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import auth from './../../../firebase.init';
+import { signOut } from 'firebase/auth';
 
 const Navbar = () => {
+    const [user]=useAuthState(auth);
+
+    // const handleSignOut =e=>{
+
+    // }
 
     const menuItems = <>
         <li className="font-semibold">
@@ -66,7 +74,12 @@ const Navbar = () => {
                     <div className="dropdown dropdown-end">
                         <label tabIndex="0" className="btn btn-ghost btn-circle avatar">
                             <div className="w-10 rounded-full">
-                                <img src="https://api.lorem.space/image/face?hash=33791" alt="" />
+                                {
+                                    user?
+                                    <img src={user.photoURL} alt="" />
+                                    :
+                                    <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" alt="" />
+                                }
                             </div>
                         </label>
                         <ul tabIndex="0" className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-slate-200 rounded-box w-52">
@@ -80,7 +93,12 @@ const Navbar = () => {
                                 <a href="#h">Settings</a>
                             </li>
                             <li>
-                                <Link to='/login' href="#h">Log In</Link>
+                                {
+                                    user?  
+                                    <button onClick={()=>signOut(auth)} className="btn bg-rose-600 border-0 text-white">Log Out</button>
+                                    :
+                                    <Link className="btn bg-blue-500 border-0 text-white" to='/login' href="#h">Log In</Link>
+                                }
                             </li>
                         </ul>
                     </div>
