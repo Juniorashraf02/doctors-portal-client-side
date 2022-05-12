@@ -8,6 +8,7 @@ import Review from './Pages/Review/Review';
 import Contact from './Pages/Contact/Contact';
 import NotFound from './Pages/NotFound/NotFound';
 import LogIn from './Pages/LogIn/LogIn';
+import Signup from './Pages/Signup/Signup';
 
 
 
@@ -23,6 +24,7 @@ function App() {
         <Route path='/review' element={<Review/>}></Route>
         <Route path='/contact' element={<Contact/>}></Route>
         <Route path='/login' element={<LogIn/>}></Route>
+        <Route path='/signup' element={<Signup/>}></Route>
         <Route path='*' element={<NotFound/>}></Route>
       </Routes>
       
