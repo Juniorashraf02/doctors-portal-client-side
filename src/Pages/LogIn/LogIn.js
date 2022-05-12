@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
-import { useAuthState, useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
+import React, { useEffect }  from 'react';
+import { useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import auth from './../../firebase.init';
 import { useForm } from "react-hook-form";
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 const LogIn = () => {
     const [signInWithGoogle, googleUser, googleLoading, googleError] = useSignInWithGoogle(auth);
@@ -10,14 +12,21 @@ const LogIn = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
 
 
+    let navigate = useNavigate();
+    let location = useLocation();
+    let from = location.state?.from?.pathname || "/";
 
     let errorMessage;
 
     const loading = googleLoading||emailLoading;
-    if(loading){
-            return <button className="btn loading mt-10">loading</button>
-    }
 
+    useEffect(()=>{
+        
+        if( googleUser||emailUser){
+            navigate(from, { replace: true });
+        }
+        
+    },[ googleUser,emailUser,from,navigate,location]);
 
 
     const onSubmit = data => {
@@ -28,6 +37,15 @@ const LogIn = () => {
     if(googleError||emailError){
         errorMessage = <span className="text-rose-500">{googleError?.message|| emailError?.message}</span>
     }
+
+
+    if(loading){
+        return <button className="btn loading mt-10">loading</button>
+}
+    
+
+
+      
  
 
 
@@ -79,5 +97,6 @@ const LogIn = () => {
         </div>
     );
 };
+
 
 export default LogIn;
