@@ -2,30 +2,42 @@ import React, { useEffect, useState } from 'react';
 import { format } from 'date-fns';
 import Service from './Service';
 import BookingModal from './BookingModal';
+import { useQuery } from 'react-query'
 
 const AvailableAppointments = ({ date }) => {
-    const [services, setServices] = useState([]);
+    const formattedDate = format(date, 'PP');
+    // const [services, setServices] = useState([]);
     const [treatment, setTreatment] = useState(null);
-    useEffect(() => {
-        fetch('http://localhost:5000/services')
+
+    const { data: services, isloading, refetch } = useQuery(['available',formattedDate], () =>
+
+        fetch(`http://localhost:5000/available?date=${formattedDate}`)
             .then(res => res.json())
-            .then(data => {
-                setServices(data);
-            })
-    }, []);
+    )
+    if(isloading){
+        return <button className="btn loading ">loading</button>
+    }
+    /*     useEffect(() => {
+            fetch(`http://localhost:5000/available?date=${formattedDate}`)
+                .then(res => res.json())
+                .then(data => {
+                    setServices(data);
+                })
+        }, [formattedDate]); */
     return (
         <div className="my-20 container mx-auto">
             <h1 className="text-xl text-slate-400 font-semibold my-5">Available Appointments on {format(date, 'PP')}</h1>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
                 {
-                    services.map(service => <Service
+                    services?.map(service => <Service
                         key={service._id} service={service} setTreatment={setTreatment}
                     ></Service>)
                 }
             </div>
             {treatment && <BookingModal
                 date={date} treatment={treatment}
-                setTreatment={setTreatment}>
+                setTreatment={setTreatment} refetch={refetch}>
+                    
             </BookingModal>}
         </div>
     );

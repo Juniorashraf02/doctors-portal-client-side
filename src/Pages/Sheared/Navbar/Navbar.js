@@ -5,7 +5,7 @@ import auth from './../../../firebase.init';
 import { signOut } from 'firebase/auth';
 
 const Navbar = () => {
-    const [user]=useAuthState(auth);
+    const [user] = useAuthState(auth);
 
     // const handleSignOut =e=>{
 
@@ -21,6 +21,13 @@ const Navbar = () => {
         <li className="font-semibold">
             <Link to='/appointment'>Appointment</Link>
         </li>
+        {
+            user &&
+                <li className="font-semibold">
+                    <Link to='/dashboard'>Dashboard</Link>
+                </li>
+                
+        }
         <li className="font-semibold">
             <Link to='/review'>Review</Link>
         </li>
@@ -54,6 +61,7 @@ const Navbar = () => {
                             {menuItems}
                         </ul>
                     </div>
+                    <label for="dashboard-sidebar" class="btn btn-primary drawer-button lg:hidden">Open drawer</label>
                     <div className="dropdown dropdown-end">
                         <label tabIndex="0" className="btn btn-ghost btn-circle">
                             <div className="indicator">
@@ -66,7 +74,7 @@ const Navbar = () => {
                                 <span className="font-bold text-lg">8 Items</span>
                                 <span className="text-gray-600">Subtotal: $999</span>
                                 <div className="card-actions">
-                                    <button  className="btn btn-primary btn-block">View cart</button>
+                                    <button className="btn btn-primary btn-block">View cart</button>
                                 </div>
                             </div>
                         </div>
@@ -75,10 +83,10 @@ const Navbar = () => {
                         <label tabIndex="0" className="btn btn-ghost btn-circle avatar">
                             <div className="w-10 rounded-full">
                                 {
-                                    user?
-                                    <img src={user.photoURL} alt="" />
-                                    :
-                                    <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" alt="" />
+                                    user ?
+                                        <img src={user.photoURL} alt="" />
+                                        :
+                                        <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" alt="" />
                                 }
                             </div>
                         </label>
@@ -94,10 +102,10 @@ const Navbar = () => {
                             </li>
                             <li>
                                 {
-                                    user?  
-                                    <button onClick={()=>signOut(auth)} className="btn bg-rose-600 border-0 text-white">Log Out</button>
-                                    :
-                                    <Link className="btn bg-blue-500 border-0 text-white" to='/login' href="#h">Log In</Link>
+                                    user ?
+                                        <button onClick={() => signOut(auth)} className="btn bg-rose-600 border-0 text-white">Log Out</button>
+                                        :
+                                        <Link className="btn bg-blue-500 border-0 text-white" to='/login' href="#h">Log In</Link>
                                 }
                             </li>
                         </ul>
