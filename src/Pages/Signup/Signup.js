@@ -3,12 +3,14 @@ import { useAuthState, useCreateUserWithEmailAndPassword, useSignInWithGoogle, u
 import auth from './../../firebase.init';
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from 'react-router-dom';
+import useToken from './../../Hooks/UseToken';
 
 const Signup = () => {
     const [signInWithGoogle, googleUser, googleLoading, googleError] = useSignInWithGoogle(auth);
     const [createUserWithEmailAndPassword,  emailUser,  emailLoading,  emailError] = useCreateUserWithEmailAndPassword(auth);
     const [updateProfile, updating, updateError] = useUpdateProfile(auth);
     const { register, handleSubmit, formState: { errors } } = useForm();
+    const [token] = useToken(emailUser||googleUser);
     const navigate = useNavigate();
     const [user]= useAuthState(auth);
 
@@ -21,8 +23,9 @@ const Signup = () => {
             return <button className="btn loading mt-10">loading</button>
     }
 
-    if(user||googleUser||emailUser){
-        console.log(user||googleUser||emailUser);
+    if(token){
+        // console.log(user||googleUser||emailUser);
+        navigate('/appointment');
     }
 
 
@@ -30,7 +33,6 @@ const Signup = () => {
         console.log(data);
         await createUserWithEmailAndPassword(data.email,data.password);
         await updateProfile({displayName:data.name});
-        navigate('/appointment');
      
     };
 

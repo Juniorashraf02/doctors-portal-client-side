@@ -3,13 +3,17 @@ import { Link } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import auth from './../../../firebase.init';
 import { signOut } from 'firebase/auth';
+import useToken from '../../../Hooks/UseToken';
 
 const Navbar = () => {
     const [user] = useAuthState(auth);
 
-    // const handleSignOut =e=>{
+    const [token] = useToken();
 
-    // }
+    const handleSignOut =e=>{
+        signOut(auth);
+        localStorage.removeItem('accessTokenForDoctorPortal');
+    }
 
     const menuItems = <>
         <li className="font-semibold">
@@ -61,7 +65,7 @@ const Navbar = () => {
                             {menuItems}
                         </ul>
                     </div>
-                    <label for="dashboard-sidebar" class="btn btn-primary drawer-button lg:hidden">Open drawer</label>
+                    <label htmlFor="dashboard-sidebar" className="btn btn-primary drawer-button lg:hidden">Open drawer</label>
                     <div className="dropdown dropdown-end">
                         <label tabIndex="0" className="btn btn-ghost btn-circle">
                             <div className="indicator">
@@ -103,7 +107,7 @@ const Navbar = () => {
                             <li>
                                 {
                                     user ?
-                                        <button onClick={() => signOut(auth)} className="btn bg-rose-600 border-0 text-white">Log Out</button>
+                                        <button onClick={handleSignOut} className="btn bg-rose-600 border-0 text-white">Log Out</button>
                                         :
                                         <Link className="btn bg-blue-500 border-0 text-white" to='/login' href="#h">Log In</Link>
                                 }
