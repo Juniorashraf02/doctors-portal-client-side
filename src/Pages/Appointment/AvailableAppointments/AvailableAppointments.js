@@ -11,14 +11,14 @@ const AvailableAppointments = ({ date }) => {
 
     const { data: services, isloading, refetch } = useQuery(['available',formattedDate], () =>
 
-        fetch(`http://localhost:5000/available?date=${formattedDate}`)
+        fetch(`https://dry-hollows-31914.herokuapp.com/available?date=${formattedDate}`)
             .then(res => res.json())
     )
     if(isloading){
         return <button className="btn loading ">loading</button>
     }
     /*     useEffect(() => {
-            fetch(`http://localhost:5000/available?date=${formattedDate}`)
+            fetch(`https://dry-hollows-31914.herokuapp.com/available?date=${formattedDate}`)
                 .then(res => res.json())
                 .then(data => {
                     setServices(data);

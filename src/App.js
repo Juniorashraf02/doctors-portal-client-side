@@ -18,6 +18,8 @@ import Myreview from './Pages/Dashboard/Myreview';
 import History from './Pages/Dashboard/History';
 import User from './Pages/Dashboard/User';
 import RequireAdmin from './Pages/RequireAuth/RequireAdmin';
+import AddDoctor from './Pages/Dashboard/AddDoctor';
+import ManageDoctors from './Pages/Dashboard/ManageDoctors';
 
 
 
@@ -25,38 +27,49 @@ import RequireAdmin from './Pages/RequireAuth/RequireAdmin';
 function App() {
   return (
     <div className="App overflow-x-hidden scroll-smooth">
-      <Navbar/>
+      <Navbar />
       <Routes>
-        <Route path='/' element={<Home/>}></Route>
-        <Route path='/home' element={<Home/>}></Route>
-        <Route path='/about' element={<About/>}></Route>
+        <Route path='/' element={<Home />}></Route>
+        <Route path='/home' element={<Home />}></Route>
+        <Route path='/about' element={<About />}></Route>
         <Route path='/appointment' element={
-        <RequireAuth>
-          <Appointment/>
-        </RequireAuth>
+          <RequireAuth>
+            <Appointment />
+          </RequireAuth>
         }></Route>
         <Route path='/dashboard' element={
-        <RequireAuth>
-          <Dashboard/>
-        </RequireAuth>
+          <RequireAuth>
+            <Dashboard />
+          </RequireAuth>
         }>
-          <Route index element={<MyAppointment/>}></Route>
-          <Route path="review" element={<Myreview/>}></Route>
-          <Route path="history" element={<History/>}></Route>
+          <Route index element={<MyAppointment />}></Route>
+          <Route path="review" element={<Myreview />}></Route>
+          <Route path="history" element={<History />}></Route>
           <Route path="users" element={
-          <RequireAdmin>
-
-<User/>
-          </RequireAdmin>
-          
-          
+            <RequireAdmin>
+              <User />
+            </RequireAdmin>
           }></Route>
+
+          <Route path="addDoctor" element={
+            <RequireAdmin>
+              <AddDoctor />
+            </RequireAdmin>
+          }></Route>
+
+          <Route path="manageDoctors" element={
+            <RequireAdmin>
+              <ManageDoctors />
+            </RequireAdmin>
+          }></Route>
+
+          
         </Route>
-        <Route path='/review' element={<Review/>}></Route>
-        <Route path='/contact' element={<Contact/>}></Route>
-        <Route path='/login' element={<LogIn/>}></Route>
-        <Route path='/signup' element={<Signup/>}></Route>
-        <Route path='*' element={<NotFound/>}></Route>
+        <Route path='/review' element={<Review />}></Route>
+        <Route path='/contact' element={<Contact />}></Route>
+        <Route path='/login' element={<LogIn />}></Route>
+        <Route path='/signup' element={<Signup />}></Route>
+        <Route path='*' element={<NotFound />}></Route>
       </Routes>
       <ToastContainer />
     </div>

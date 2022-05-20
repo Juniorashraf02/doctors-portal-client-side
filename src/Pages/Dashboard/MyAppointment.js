@@ -13,7 +13,7 @@ const MyAppointment = () => {
             return <p>Loading</p>
         }
         if (user) {
-            fetch(`http://localhost:5000/bookings?patient=${user.email}`, {
+            fetch(`https://dry-hollows-31914.herokuapp.com/bookings?patient=${user.email}`, {
                 method: 'GET',
                 headers: {
                     'authorization': `Bearer ${localStorage.getItem('accessTokenForDoctorPortal')}`
