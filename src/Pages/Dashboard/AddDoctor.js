@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 const AddDoctor = () => {
     const { register, handleSubmit, formState: { errors } ,reset} = useForm();
 
-    const { data: services, isLoading} = useQuery('services', () => fetch('http://localhost:5000/services').then(res => res.json()));
+    const { data, isLoading} = useQuery('services', () => fetch('https://dry-hollows-31914.herokuapp.com/services').then(res => res.json()));
 
     const imageStorageKey = 'f87b404a254223b4c535f3d57c7bc1fb';
 
@@ -22,7 +22,7 @@ const AddDoctor = () => {
         })
         .then(response => response.json())
         .then(result => {
-            console.log(result);
+            // console.log(result);
             if(result.success){
                 const img = result.data.url;
                 const doctor= {
@@ -31,7 +31,7 @@ const AddDoctor = () => {
                     specialization:data.specialization,
                     img:img,
                 }
-                fetch('http://localhost:5000/doctor', {
+                fetch(' https://dry-hollows-31914.herokuapp.com/doctor', {
                     method: 'POST',
                     headers: {
                         'content-type':'application/json',
@@ -76,10 +76,10 @@ const AddDoctor = () => {
                 {errors.email?.type === 'required' && <span className="text-gray-300 my-1">{errors.email.message}</span>}
                 {errors.email?.type === 'pattern' && <span className="text-gray-300 my-1">{errors.email.message}</span>}
 
-                <select {...register("specialization")} class="select input-bordered w-full max-w-xs">
-                    <option disabled selected>Pick your favorite Simpson</option>
+                <select {...register("specialization")} class="select input-bordered w-full max-w-xs" >
+                    <option disabled defaultValue>Pick your favorite Simpson</option>
                     {
-                        services.map(service => <option key={service._id} service={service}>{service.name}</option>)
+                        data.map(service => <option key={service._id} service={service}>{service.name}</option>)
                     }
 
                 </select>

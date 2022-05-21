@@ -12,13 +12,13 @@ import Footer from './../../Sheared/Footer/Footer';
 const Home = () => {
     return (
         <div>
-            <Banner/>
-            <Info/>
-            <Services/>
-            <DoctorsWord/>
-            <Appointment/>
-            <Reviews/>
-            <ContactUs/>
+            <Banner />
+            <Info />
+            <Services />
+            <DoctorsWord />
+            <Appointment />
+            <Reviews />
+            <ContactUs />
             <Footer></Footer>
         </div>
     );

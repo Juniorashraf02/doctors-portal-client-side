@@ -1,7 +1,14 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import chair from '../../../assets/images/chair.png';
 
 const Banner = () => {
+    const navigate = useNavigate()
+
+    const handleClick = e => {
+        navigate('/appointment')
+    }
+
     return (
         <div>
             <div className="hero ">
@@ -10,7 +17,7 @@ const Banner = () => {
                     <div className='text-left md:w-1/2'>
                         <h1 className="text-5xl font-bold text-slate-500">Your New Smile Starts Here</h1>
                         <p className="py-6 text-gray-400">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
-                        <button className="btn btn-tertiary font-bold bg-gradient-to-r from-primary to-secondary border-0 text-white">Get Started</button>
+                        <button onClick={handleClick} className="btn btn-tertiary font-bold bg-gradient-to-r from-primary to-secondary border-0 text-white">Get Started</button>
                     </div>
                 </div>
             </div>

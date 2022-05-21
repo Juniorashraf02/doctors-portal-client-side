@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import auth from './../../firebase.init';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { signOut } from 'firebase/auth';
 
 const MyAppointment = () => {
@@ -20,7 +20,7 @@ const MyAppointment = () => {
                 }
             })
                 .then(res => {
-                    console.log('res', res);
+                    // console.log('res', res);
                     if (res === 401 || res === 403) {
                         signOut(auth);
                         localStorage.removeItem('accessTokenForDoctorPortal');
@@ -36,7 +36,7 @@ const MyAppointment = () => {
     }, [user, loading, navigate]);
     return (
         <div>
-            <h1>All appointments: {appointment.length}</h1>
+            <h1 className="my-10">All appointments: {appointment.length}</h1>
             <div className="overflow-x-auto w-full">
                 <table className="table w-full">
 
@@ -51,11 +51,12 @@ const MyAppointment = () => {
                             <th>Date</th>
                             <th>Time </th>
                             <th>Treatment</th>
+                            <th>Pay</th>
                         </tr>
                     </thead>
                     <tbody>
 
-                        {appointment.map(a => <tr>
+                        {appointment.map(a => <tr key={a._id}>
                             <th>
                                 <label>
                                     <input type="checkbox" className="checkbox" />
@@ -83,6 +84,17 @@ const MyAppointment = () => {
                             <th>
                                 <button className="btn btn-ghost btn-xs">{a.treatment}</button>
                             </th>
+                            <td>
+                                {(a.price && !a.paid) && <Link to={`/dashboard/payment/${a._id}`}>
+                                <button className="btn btn-error">Pay</button>
+                                </Link>}
+                                {(a.price && a.paid) && 
+                                <div>
+                                    <button className="btn btn-success">Paid</button> <br />
+                                    {/* <p>Transaction id: <span className='text-success'>{a.transactionId}</span></p> */}
+                                </div>
+                              }
+                            </td>
                         </tr>)}
 
 

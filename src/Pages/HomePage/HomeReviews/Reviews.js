@@ -1,7 +1,7 @@
 import React from 'react';
 import client1 from '../../../assets/images/people1.png';
-import client2 from '../../../assets/images/people2.png';
-import client3 from '../../../assets/images/people3.png';
+import client2 from '../../../assets/images/people2.jpg';
+import client3 from '../../../assets/images/people3.jpg';
 import quote from '../../../assets/icons/quote.svg';
 import ReviewCard from './ReviewCard';
 

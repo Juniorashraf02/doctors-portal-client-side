@@ -3,7 +3,7 @@ import { useQuery } from 'react-query';
 import DoctorRow from './DoctorRow';
 
 const ManageDoctors = () => {
-    const { data: doctors, isLoading, refetch } = useQuery('doctor', () => fetch('http://localhost:5000/doctor', {
+    const { data: doctors, isLoading, refetch } = useQuery('doctor', () => fetch(' https://dry-hollows-31914.herokuapp.com/doctor', {
         headers: {
             'authorization': `Bearer ${localStorage.getItem('accessTokenForDoctorPortal')}`
         }

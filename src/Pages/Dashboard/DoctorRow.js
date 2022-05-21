@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 const DoctorRow = ({ doctor, index, refetch }) => {
     const { name, specialization, img, email } = doctor;
     const handleDelete = email => {
-        fetch(`http://localhost:5000/doctor/${email}`,{
+        fetch(` https://dry-hollows-31914.herokuapp.com/doctor/${email}`,{
             method: 'DELETE',
             headers: {
                 'authorization': `Bearer ${localStorage.getItem('accessTokenForDoctorPortal')}`

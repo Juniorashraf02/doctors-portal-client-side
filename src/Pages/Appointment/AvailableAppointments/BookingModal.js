@@ -10,7 +10,7 @@ import 'react-toastify/dist/ReactToastify.css';
 const BookingModal = ({ treatment, date, setTreatment,refetch }) => {
     const [user]=useAuthState(auth);
 
-    const { name, slots, _id } = treatment;
+    const { name, slots, _id, price } = treatment;
 
     const formattedDate = format(date,'PP')
 
@@ -24,6 +24,7 @@ const BookingModal = ({ treatment, date, setTreatment,refetch }) => {
             treatment:name,
             date:formattedDate,
             slot,
+            price,
             patient:user.email,
             patientName:user.displayName,
             phone:phone,
@@ -56,8 +57,9 @@ const BookingModal = ({ treatment, date, setTreatment,refetch }) => {
             <input type="checkbox" id="booking-modal" className="modal-toggle" />
             <div className="modal modal-bottom sm:modal-middle">
                 <div className="modal-box">
-                    <label htmlhtmlFor="booking-modal" className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
+                    <label htmlFor="booking-modal" className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
                     <h3 className="font-bold text-lg text-cyan-400 text-left">Booking for: {name}</h3>
+                    
                     <form onSubmit={handleSubmit} className="my-5">
                         <input value={format(date, 'PP')} placeholder="date" className="bg-gray-100 mb-5 input w-full max-w-xs font-bold " disabled />
                         <select name="timeSlot" className="select select-bordered w-full max-w-xs">

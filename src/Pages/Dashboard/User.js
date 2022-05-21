@@ -21,7 +21,7 @@ const User = () => {
 
     return (
         <div>
-            <h1>All Users: {users.length}</h1>
+            <h1 className="my-10">All Users: {users.length}</h1>
 
 
             <div className="overflow-x-auto">
